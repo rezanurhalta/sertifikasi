@@ -91,18 +91,29 @@
                 Platform resmi Lembaga Sertifikasi Profesi (LSP) untuk memudahkan manajemen data peserta ujian, master data skema sertifikasi, serta pencatatan yang terintegrasi.
             </p>
             <div class="d-flex justify-content-center gap-3">
-                @auth
-                    <a href="{{ route('dashboard') }}" class="btn btn-light text-primary btn-lg px-4 shadow fw-semibold">
-                        <i class="bi bi-speedometer2 me-2"></i> Masuk ke Dashboard
-                    </a>
-                @else
-                    <a href="{{ route('login') }}" class="btn btn-light text-primary btn-lg px-4 shadow fw-semibold">
-                        <i class="bi bi-box-arrow-in-right me-2"></i> Login 
-                    </a>
-                    <a href="{{ route('register') }}" class="btn btn-outline-light btn-lg px-4 shadow fw-semibold">
-                        <i class="bi bi-person-plus me-2"></i> Buat Akun Baru
-                    </a>
-                @endauth
+      @auth
+    <li class="nav-item ms-2">
+        @if(Auth::user()->role === 'admin')
+            <a href="{{ route('dashboard') }}" class="btn btn-light text-primary fw-semibold px-3">Dashboard Admin</a>
+        @else
+            <a href="{{ route('dashboard.user') }}" class="btn btn-light text-primary fw-semibold px-3">Dashboard Peserta</a>
+        @endif
+    </li>
+    <!-- Tombol Logout Opsional di Navbar -->
+    <li class="nav-item ms-2">
+        <form action="{{ route('logout') }}" method="POST" class="d-inline">
+            @csrf
+            <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
+        </form>
+    </li>
+@else
+    <li class="nav-item ms-2">
+        <a href="{{ route('login') }}" class="btn btn-outline-light px-3">Login</a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ route('register') }}" class="btn btn-light text-primary fw-semibold px-3">Register</a>
+    </li>
+@endauth
             </div>
         </div>
     </header>
