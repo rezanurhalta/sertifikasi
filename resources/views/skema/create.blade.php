@@ -2,7 +2,7 @@
 
 @section('content')
 {{-- 
-    PENJELASAN UNTUK ASESOR:
+  
     Form ini digunakan untuk menambahkan data Skema Sertifikasi baru.
     Kolom Jenis Skema menggunakan elemen <select> dropdown untuk memastikan konsistensi data.
 --}}

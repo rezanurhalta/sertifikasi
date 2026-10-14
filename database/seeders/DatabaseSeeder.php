@@ -32,15 +32,15 @@ $skema = Skema::firstOrCreate(
             ['nm_skema' => 'Pemrograman Web Junior']
         );
 
-        // 3. Buat Akun User / Peserta
+        //  Buat Akun User / Peserta
         $userPeserta = User::create([
-            'name' => 'Budi Santoso',
-            'email' => 'budi@gmail.com',
+            'name' => 'User Sentosa',
+            'email' => 'user@gmail.com',
             'password' => Hash::make('user123'),
             'role' => 'user'
         ]);
 
-        // 4. Buat Data Peserta yang terhubung ke Akun User di atas
+        
         Peserta::create([
             'user_id'    => $userPeserta->id,
             'skema_id'   => $skema->id,
@@ -48,7 +48,7 @@ $skema = Skema::firstOrCreate(
             'jk'         => 'L',
             'almt'       => 'Jl. Merdeka No. 45, Jakarta',
             'no_hp'      => '081234567890',
-            'status'     => 'Kompeten', // Status awal (Menunggu / Kompeten / Belum Kompeten)
+            'status'     => 'Menunggu', 
         ]);
 
 

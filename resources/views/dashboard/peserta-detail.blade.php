@@ -31,7 +31,7 @@
 
                         <table class="table table-bordered">
                             <tr>
-                                <th width="30%">Nama Lengkap</th>
+                                <th>Nama Lengkap</th>
                                 <td>{{ $peserta->nm_peserta }}</td>
                             </tr>
                             <tr>
@@ -60,9 +60,15 @@
                             </tr>
                         </table>
                     @else
-                        <div class="alert alert-warning text-center">
-                            Data peserta untuk akun Anda belum terhubung. Silakan lengkapi atau hubungi administrator.
+                        <!-- Peringatan jika data peserta dihapus / tidak ditemukan oleh admin -->
+                        <div class="alert alert-danger text-center p-4">
+                            <h5 class="alert-heading fw-bold">Peringatan Akses</h5>
+                            <p class="mb-3">Data peserta atau akun Anda sudah tidak ada atau telah dihapus oleh Administrator.</p>
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-dark btn-sm">Keluar Sistem</a>
                         </div>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
                     @endif
                 </div>
             </div>

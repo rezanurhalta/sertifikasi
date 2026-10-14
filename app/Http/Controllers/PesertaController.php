@@ -14,9 +14,9 @@ class PesertaController extends Controller
         $pesertas = Peserta::with('skema')
             ->when($search, function ($query, $search) {
                 return $query->where('nm_peserta', 'like', "%{$search}%")
-                             ->orWhereHas('skema', function ($q) use ($search) {
-                                 $q->where('nm_skema', 'like', "%{$search}%");
-                             });
+                    ->orWhereHas('skema', function ($q) use ($search) {
+                        $q->where('nm_skema', 'like', "%{$search}%");
+                    });
             })
             ->latest()->get();
 
@@ -29,33 +29,20 @@ class PesertaController extends Controller
         return view('peserta.create', compact('skemas'));
     }
 
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //        'skema_id'   => 'required|exists:skemas,id',
-    //     'nm_peserta' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'], 
-    //     'jk'         => 'required|in:L,P',
-    //     'almt'       => 'required|string',
-    //     'no_hp'      => 'required|string|max:15',
-    // ], [
-    //     'nm_peserta.regex' => 'Nama peserta hanya boleh berisi huruf dan spasi.', 
-    //     'nm_peserta.required' => 'Nama peserta wajib diisi.',
-    // ]);
-    //     Peserta::create($request->all());
-    //     return redirect()->route('peserta.index')->with('success', 'Peserta berhasil ditambahkan');
-    // }
 
     public function store(Request $request)
     {
         $request->validate([
             'skema_id'   => 'required|exists:skemas,id',
-            'nm_peserta' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'], 
+            'nm_peserta' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
             'jk'         => 'required|in:L,P',
             'almt'       => 'required|string',
-            'no_hp'      => 'required|string|max:15',
+            'no_hp'      => ['required', 'string', 'regex:/^08[0-9]{8,11}$/'],
         ], [
-            'nm_peserta.regex'    => 'Nama peserta hanya boleh berisi huruf dan spasi.', 
-            'nm_peserta.required' => 'Nama peserta wajib diisi.',
+           'nm_peserta.required' => 'Nama peserta wajib diisi.',
+            'nm_peserta.regex'    => 'Nama peserta hanya boleh berisi huruf dan spasi.',
+            'no_hp.required'      => 'Nomor HP wajib diisi.',
+            'no_hp.regex'         => 'Nomor HP harus diawali dengan 08 dan berisi 10-13 digit angka.',
         ]);
 
         // Gunakan create dengan memasukkan user_id secara eksplisit bernilai null
@@ -90,12 +77,18 @@ class PesertaController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'skema_id'   => 'required',
-            'nm_peserta' => 'required',
-            'jk'         => 'required',
-            'almt'       => 'required',
-            'no_hp'      => 'required',
+            'skema_id'   => 'required|exists:skemas,id',
+            'nm_peserta' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
+            'jk'         => 'required|in:L,P',
+            'almt'       => 'required|string',
+            
+            'no_hp'      => ['required', 'string', 'regex:/^08[0-9]{8,11}$/'],
             'status'     => 'required|in:Menunggu,Kompeten,Belum Kompeten',
+        ], [
+            'nm_peserta.required' => 'Nama peserta wajib diisi.',
+            'nm_peserta.regex'    => 'Nama peserta hanya boleh berisi huruf dan spasi.',
+            'no_hp.required'      => 'Nomor HP wajib diisi.',
+            'no_hp.regex'         => 'Nomor HP harus diawali dengan 08 dan berisi 10-13 digit angka.',
         ]);
 
         $peserta = Peserta::findOrFail($id);

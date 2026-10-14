@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +16,7 @@
             background-color: #f8f9fa;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
         .hero-section {
             background: linear-gradient(135deg, #4083e7 0%, #4658fc 100%);
             color: white;
@@ -22,6 +24,7 @@
             border-bottom-left-radius: 50px;
             border-bottom-right-radius: 50px;
         }
+
         .logo-circle {
             width: 80px;
             height: 80px;
@@ -33,16 +36,19 @@
             border-radius: 50%;
             backdrop-filter: blur(5px);
         }
+
         .feature-card {
             transition: transform 0.3s ease;
             border: none;
             border-radius: 15px;
         }
+
         .feature-card:hover {
             transform: translateY(-5px);
         }
     </style>
 </head>
+
 <body>
 
     <!-- Navbar / Menu Atas -->
@@ -58,23 +64,26 @@
                 <ul class="navbar-nav align-items-center gap-2">
                     <li class="nav-item"><a class="nav-link active" href="#">Beranda</a></li>
                     <li class="nav-item"><a class="nav-link" href="#fitur">Tentang & Fitur</a></li>
-                    @auth
-                       <li class="nav-item ms-2">
-        @if(Auth::user()->role === 'admin')
-            <a href="{{ route('dashboard') }}" class="btn btn-light text-primary fw-semibold px-3">Dashboard Admin</a>
-        @else
-            <a href="{{ route('dashboard.user') }}" class="btn btn-light text-primary fw-semibold px-3">Dashboard Peserta</a>
-        @endif
-    </li>
-                    @else
-                        <li class="nav-item ms-2">
+                    <div class="d-flex justify-content-center gap-3">
+                        @auth
+                            @if (Auth::user()->role === 'admin')
+                                <a href="{{ route('dashboard') }}"
+                                    class="btn btn-light text-primary fw-semibold px-3">Dashboard Admin</a>
+                            @else
+                                <a href="{{ route('dashboard.user') }}"
+                                    class="btn btn-light text-primary fw-semibold px-3">Dashboard Peserta</a>
+                            @endif
+
+                            <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-danger">Logout</button>
+                            </form>
+                        @else
                             <a href="{{ route('login') }}" class="btn btn-outline-light px-3">Login</a>
-                        </li>
-                        {{-- Jika route register tersedia di proyek Anda --}}
-                        <li class="nav-item">
-                            <a href="{{ route('register') }}" class="btn btn-light text-primary fw-semibold px-3">Register</a>
-                        </li>
-                    @endauth
+                            <a href="{{ route('register') }}"
+                                class="btn btn-light text-primary fw-semibold px-3">Register</a>
+                        @endauth
+                    </div>
                 </ul>
             </div>
         </div>
@@ -88,32 +97,27 @@
             </div>
             <h1 class="fw-bold display-5 mb-3">Sistem Pengelolaan Data Peserta Sertifikasi</h1>
             <p class="lead mb-4 mx-auto" style="max-width: 700px;">
-                Platform resmi Lembaga Sertifikasi Profesi (LSP) untuk memudahkan manajemen data peserta ujian, master data skema sertifikasi, serta pencatatan yang terintegrasi.
+                Platform resmi Lembaga Sertifikasi Profesi (LSP) untuk memudahkan manajemen data peserta ujian, master
+                data skema sertifikasi, serta pencatatan yang terintegrasi.
             </p>
             <div class="d-flex justify-content-center gap-3">
-      @auth
-    <li class="nav-item ms-2">
-        @if(Auth::user()->role === 'admin')
-            <a href="{{ route('dashboard') }}" class="btn btn-light text-primary fw-semibold px-3">Dashboard Admin</a>
-        @else
-            <a href="{{ route('dashboard.user') }}" class="btn btn-light text-primary fw-semibold px-3">Dashboard Peserta</a>
-        @endif
-    </li>
-    <!-- Tombol Logout Opsional di Navbar -->
-    <li class="nav-item ms-2">
-        <form action="{{ route('logout') }}" method="POST" class="d-inline">
-            @csrf
-            <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
-        </form>
-    </li>
-@else
-    <li class="nav-item ms-2">
-        <a href="{{ route('login') }}" class="btn btn-outline-light px-3">Login</a>
-    </li>
-    <li class="nav-item">
-        <a href="{{ route('register') }}" class="btn btn-light text-primary fw-semibold px-3">Register</a>
-    </li>
-@endauth
+                @auth
+                    @if (Auth::user()->role === 'admin')
+                        <a href="{{ route('dashboard') }}" class="btn btn-light text-primary fw-semibold px-3">Dashboard
+                            Admin</a>
+                    @else
+                        <a href="{{ route('dashboard.user') }}"
+                            class="btn btn-light text-primary fw-semibold px-3">Dashboard Peserta</a>
+                    @endif
+
+                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-danger">Logout</button>
+                    </form>
+                @else
+                    <a href="{{ route('login') }}" class="btn btn-outline-light px-3">Login</a>
+                    <a href="{{ route('register') }}" class="btn btn-light text-primary fw-semibold px-3">Register</a>
+                @endauth
             </div>
         </div>
     </header>
@@ -123,7 +127,8 @@
         <div class="container py-4">
             <div class="text-center mb-5">
                 <h2 class="fw-bold text-dark">Fitur Utama Sistem</h2>
-                <p class="text-muted">Keunggulan dan modul yang tersedia di dalam aplikasi pengelolaan sertifikasi ini.</p>
+                <p class="text-muted">Keunggulan dan modul yang tersedia di dalam aplikasi pengelolaan sertifikasi ini.
+                </p>
             </div>
             <div class="row g-4">
                 <div class="col-md-4">
@@ -132,7 +137,8 @@
                             <i class="bi bi-shield-lock-fill"></i>
                         </div>
                         <h4 class="fw-bold fs-5">Autentikasi Aman</h4>
-                        <p class="text-muted small mb-0">Sistem proteksi login dan registrasi berbasis sesi untuk memastikan hanya administrator terverifikasi yang dapat mengelola data.</p>
+                        <p class="text-muted small mb-0">Sistem proteksi login dan registrasi berbasis sesi untuk
+                            memastikan hanya administrator terverifikasi yang dapat mengelola data.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -141,7 +147,8 @@
                             <i class="bi bi-journal-code"></i>
                         </div>
                         <h4 class="fw-bold fs-5">Manajemen Skema</h4>
-                        <p class="text-muted small mb-0">Kelola master data skema sertifikasi (KKNI, Klaster, Okupasi, dan Unit Kompetensi) secara terstruktur dan terstandar.</p>
+                        <p class="text-muted small mb-0">Kelola master data skema sertifikasi (KKNI, Klaster, Okupasi,
+                            dan Unit Kompetensi) secara terstruktur dan terstandar.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -150,7 +157,8 @@
                             <i class="bi bi-people-fill"></i>
                         </div>
                         <h4 class="fw-bold fs-5">Pengolahan Data Peserta</h4>
-                        <p class="text-muted small mb-0">Fitur CRUD lengkap untuk peserta ujian, dilengkapi validasi input form yang ketat serta relasi data otomatis dengan tabel skema.</p>
+                        <p class="text-muted small mb-0">Fitur CRUD lengkap untuk peserta ujian, dilengkapi validasi
+                            input form yang ketat serta relasi data otomatis dengan tabel skema.</p>
                     </div>
                 </div>
             </div>
@@ -168,4 +176,5 @@
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

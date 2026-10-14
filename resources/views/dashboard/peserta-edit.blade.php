@@ -50,6 +50,12 @@
                         <hr class="my-4">
                         <h6 class="text-primary fw-bold mb-3">Informasi Sertifikasi & Kontak</h6>
 
+                        {{-- Tambahan Kolom NIK --}}
+                        <div class="mb-3">
+                            <label class="form-label">NIK (Nomor Induk Kependudukan)</label>
+                            <input type="text" name="nik" class="form-control" value="{{ old('nik', $peserta->nik) }}" maxlength="16" required>
+                        </div>
+
                         <div class="mb-3">
                             <label class="form-label">Skema Sertifikasi</label>
                             <select name="skema_id" class="form-select" required>

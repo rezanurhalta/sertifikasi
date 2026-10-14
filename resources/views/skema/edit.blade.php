@@ -2,7 +2,6 @@
 
 @section('content')
 {{-- 
-    PENJELASAN UNTUK ASESOR:
     Form ini digunakan untuk memperbarui data Skema Sertifikasi.
     Kolom Jenis Skema menggunakan elemen <select> dengan opsi terstandar.
 --}}

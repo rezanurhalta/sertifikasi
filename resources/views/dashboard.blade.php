@@ -20,10 +20,12 @@
                 </div>
                 <div>
                     <a href="{{ route('skema.index') }}" class="btn btn-light btn-sm text-primary fw-bold">Kelola Skema &rarr;</a>
+                    
                 </div>
             </div>
         </div>
     </div>
+
 
     <div class="col-md-6 mb-4">
         <div class="card shadow-sm border-0 bg-success text-white">
